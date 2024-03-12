@@ -1,16 +1,17 @@
-.item-required {
+/*.item-required {
     font-size: 10px !important;
     color: #F56954;
     cursor: pointer;
 }
-
+*/
 /* Mensajes de Error */
+/*
 ul.errorlist {
     background: transparent !important;
     color: inherit !important;
     margin: 0 !important;
 }
-
+*/
 ul.errorlist li {
     font-size: inherit !important;
     margin-bottom: 0 !important;
