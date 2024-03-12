@@ -18,20 +18,11 @@ jobs:
       - name: Install Codacy Analysis CLI
         run: curl -Ls https://github.com/codacy/codacy-analysis-cli/releases/download/7.9.7/codacy-analysis-cli-assembly-7.9.7.jar -o codacy-analysis-cli.jar
 
-      - name: Run Codacy Analysis
-        run: java -jar codacy-analysis-cli.jar analyze --tool deadcode --format text
-
-      - name: Save Codacy Analysis Report
-        run: java -jar codacy-analysis-cli.jar analyze --tool deadcode --format text > codacy-analysis-report.txt
-
-      - name: Commit and Push Changes
-        uses: stefanzweifel/git-auto-commit-action@v4
+      - name: Ejecutar análisis Codacy y guardar salida
+        run: java -jar codacy-analysis-cli.jar analyze --tool deadcode --format text > ./resultados_analisis.txt
+      
+      - name: Subir archivo de análisis a GitHub
+        uses: actions/upload-artifact@v3
         with:
-          commit_message: "Update Codacy Analysis Report"
-          files: |
-            codacy-analysis-report.json
-
-      - name: Push Changes to Repository
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          name: Análisis Codacy
+          path: ./resultados_analisis.txt
