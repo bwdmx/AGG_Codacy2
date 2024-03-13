@@ -17,7 +17,14 @@ jobs:
 
       - name: Install Codacy Analysis CLI
         run: curl -Ls https://github.com/codacy/codacy-analysis-cli/releases/download/7.9.7/codacy-analysis-cli-assembly-7.9.7.jar -o codacy-analysis-cli.jar
-
+      
+      - name: Invalidate Codacy cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/codacy
+          key: ${{ runner.os }}-codacy-${{ github.sha }}
+          invalidate-cache: true
+          
       - name: Ejecutar análisis Codacy y guardar salida
         run: java -jar codacy-analysis-cli.jar analyze --tool deadcode --format text > ./resultados_analisis.txt
       
